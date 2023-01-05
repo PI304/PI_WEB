@@ -1,0 +1,3 @@
+type CustomHeadProps = {
+  title: string;
+};
