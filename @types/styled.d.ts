@@ -1,0 +1,3 @@
+type IsShortenType = {
+  isShorten: boolean;
+};
