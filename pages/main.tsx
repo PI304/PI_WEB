@@ -1,6 +1,8 @@
 import MainPage from '../components/pages/main/MainPage';
 import CustomHead from '../components/seo/CustomHead';
 import { Seo } from '../constants/seo';
+import { ReactElement } from 'react';
+import { DefaultLayout } from '../components/layouts';
 
 export default function main() {
   return (
@@ -10,3 +12,7 @@ export default function main() {
     </>
   );
 }
+
+main.getLayout = (page: ReactElement) => {
+  return <DefaultLayout>{page}</DefaultLayout>;
+};
