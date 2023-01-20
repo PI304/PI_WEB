@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { DefaultLayout } from '.';
 import { Navigator } from '../shared';
 
-export default function WithNavigatorLayout({ children }: ChildrenType) {
+export const WithNavigatorLayout = ({ children }: ChildrenType) => {
   return (
     <DefaultLayout>
       <S.Layout>
@@ -11,7 +11,7 @@ export default function WithNavigatorLayout({ children }: ChildrenType) {
       </S.Layout>
     </DefaultLayout>
   );
-}
+};
 
 namespace S {
   export const Layout = styled.div`

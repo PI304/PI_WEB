@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
-export default function SpaceBackground() {
+export const SpaceBackground = () => {
   return <S.Container>SpaceBackground가 아래에 있음</S.Container>;
-}
+};
 
 namespace S {
   export const Container = styled.div`

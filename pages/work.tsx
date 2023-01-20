@@ -1,8 +1,8 @@
 import { ReactElement } from 'react';
 import { WithNavigatorLayout } from '../components/layouts';
-import WorkPage from '../components/pages/work/WorkPage';
-import CustomHead from '../components/seo/CustomHead';
-import { Seo } from '../constants/seo';
+import { WorkPage } from '../components/pages/work';
+import { CustomHead } from '../components/seo';
+import { Seo } from '../constants';
 
 export default function work() {
   return (

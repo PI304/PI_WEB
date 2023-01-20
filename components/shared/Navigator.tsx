@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { useState } from 'react';
 
-export default function Navigator() {
+export const Navigator = () => {
   const [isShorten, setIsShorten] = useState(false);
   const onClick = () => setIsShorten(!isShorten);
 
@@ -11,7 +11,7 @@ export default function Navigator() {
       40vw~24vw
     </S.Container>
   );
-}
+};
 
 namespace S {
   export const Container = styled.aside<IsShortenType>`

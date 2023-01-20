@@ -1,3 +1,7 @@
+/**
+ * Base Types
+ */
+
 type ChildrenType = {
   children: React.ReactNode;
 };

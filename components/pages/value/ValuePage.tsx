@@ -1,3 +1,3 @@
-export default function ValuePage() {
-  return <>ValuePage</>;
-}
+export const ValuePage = () => {
+  return <div>ValuePage</div>;
+};

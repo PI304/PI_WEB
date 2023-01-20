@@ -1,3 +1,3 @@
-export default function TeamPage() {
-  return <>TeamPage</>;
-}
+export const TeamPage = () => {
+  return <div>TeamPage</div>;
+};

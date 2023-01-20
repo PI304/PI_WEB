@@ -1,9 +1,9 @@
 import styled from 'styled-components';
-import { Colors } from '../../styles/colors';
+import { Colors } from '../../styles';
 
-export default function ContactWidget() {
+export const ContactWidget = () => {
   return <S.Container>Widget</S.Container>;
-}
+};
 
 namespace S {
   export const Container = styled.div`

@@ -1,6 +1,6 @@
 import Head from 'next/head';
 
-export default function CustomHead({ title }: CustomHeadProps) {
+export const CustomHead = ({ title }: CustomHeadProps) => {
   return (
     <Head>
       <meta charSet='UTF-8' />
@@ -9,4 +9,4 @@ export default function CustomHead({ title }: CustomHeadProps) {
       <title>{`${title} | PLAYIDEA`}</title>
     </Head>
   );
-}
+};

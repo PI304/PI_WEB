@@ -1,8 +1,8 @@
-import TeamPage from '../components/pages/team/TeamPage';
-import CustomHead from '../components/seo/CustomHead';
-import { Seo } from '../constants/seo';
 import { ReactElement } from 'react';
 import { WithNavigatorLayout } from '../components/layouts';
+import { TeamPage } from '../components/pages/team';
+import { CustomHead } from '../components/seo';
+import { Seo } from '../constants';
 
 export default function team() {
   return (

@@ -1,4 +1,3 @@
-import Navigator from './Navigator';
-import ContactWidget from './ContactWidget';
-
-export { Navigator, ContactWidget };
+export * from './ContactWidget';
+export * from './Navigator';
+export * from './SpaceBackground';

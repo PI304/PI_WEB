@@ -1,8 +1,7 @@
 import styled from 'styled-components';
-import { ContactWidget } from '../shared';
-import SpaceBackground from '../shared/SpaceBackground';
+import { ContactWidget, SpaceBackground } from '../shared';
 
-export default function DefaultLayout({ children }: ChildrenType) {
+export const DefaultLayout = ({ children }: ChildrenType) => {
   return (
     <S.Layout>
       <SpaceBackground />
@@ -10,7 +9,7 @@ export default function DefaultLayout({ children }: ChildrenType) {
       <ContactWidget />
     </S.Layout>
   );
-}
+};
 
 namespace S {
   export const Layout = styled.div`

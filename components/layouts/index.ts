@@ -1,4 +1,2 @@
-import DefaultLayout from './DefaultLayout';
-import WithNavigatorLayout from './WithNavigatorLayout';
-
-export { DefaultLayout, WithNavigatorLayout };
+export * from './DefaultLayout';
+export * from './WithNavigatorLayout';

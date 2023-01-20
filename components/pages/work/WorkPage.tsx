@@ -1,3 +1,3 @@
-export default function WorkPage() {
-  return <>WorkPage</>;
-}
+export const WorkPage = () => {
+  return <div>WorkPage</div>;
+};
