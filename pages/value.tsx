@@ -1,7 +1,7 @@
 import { ReactElement } from 'react';
 import { WithNavigatorLayout } from '../components/layouts';
-import ValuePage from '../components/pages/value/ValuePage';
-import CustomHead from '../components/seo/CustomHead';
+import { ValuePage } from '../components/pages/value';
+import { CustomHead } from '../components/seo';
 import { Seo } from '../constants/seo';
 
 export default function value() {
