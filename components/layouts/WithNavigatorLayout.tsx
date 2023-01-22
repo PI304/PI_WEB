@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import { DefaultLayout } from '.';
 import { Navigator } from '../shared';
+import { DefaultLayout } from '.';
 
 export const WithNavigatorLayout = ({ children }: ChildrenType) => {
   return (
