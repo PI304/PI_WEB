@@ -249,7 +249,7 @@ $ git push origin Feature/[브랜치명]
 - 이런 이런 점을 유의해주세요
 ```
 
-7. (...Review 과정은 고민 중...)
+7. Review 과정을 거칩니다.
 
 8. Self Merge 해주세요.
 
@@ -257,7 +257,14 @@ $ git push origin Feature/[브랜치명]
 
 10. 로컬에서 Develop 브랜치로 체크아웃한 뒤 Pull하고, 새로운 Feature 브랜치로 분기하여 다음 작업을 진행해주세요.
 
-### 3. 브랜치 이름 컨벤션
+### 3. 코드 리뷰
+
+1. PR 시 sookyeongyeom을 Reviewer로 지정합니다.
+2. 수정이 필요하면 Request Changes로 코드 수정을 요청드립니다.
+3. 이상이 없으면 Approve 합니다.
+4. Approve된 PR을 코드작성자가 Self Merge 합니다.
+
+### 4. 브랜치 이름 컨벤션
 
 ```
 Feature/[기능요약]
@@ -268,7 +275,7 @@ Feature/[기능요약]
 ex) Feature/modal-publishing
 ```
 
-### 4. 커밋 메세지 컨벤션
+### 5. 커밋 메세지 컨벤션
 
 ```
 <태그>: <제목>
