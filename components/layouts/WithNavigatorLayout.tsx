@@ -22,7 +22,6 @@ namespace S {
     > section {
       flex-grow: 1;
       background-color: lightcoral;
-      opacity: 0.5;
     }
   `;
 }

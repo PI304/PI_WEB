@@ -4,9 +4,9 @@ import { ContactWidget, SpaceBackground } from '../shared';
 export const DefaultLayout = ({ children }: ChildrenType) => {
   return (
     <S.Layout>
-      <SpaceBackground />
       {children}
       <ContactWidget />
+      <SpaceBackground />
     </S.Layout>
   );
 };

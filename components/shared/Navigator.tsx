@@ -18,7 +18,6 @@ namespace S {
     font-weight: 700;
     font-size: 3rem;
     background-color: pink;
-    opacity: 0.5;
     width: ${(props) => (!props.isShorten ? '40vw' : '24vw')};
     transition: 0.5s ease width;
     cursor: pointer;

@@ -14,6 +14,6 @@ namespace S {
     top: 0;
     left: 0;
     background-color: navy;
-    opacity: 0.5;
+    z-index: -1;
   `;
 }
