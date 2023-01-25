@@ -5,19 +5,30 @@ import { svgSparkle } from '../../styles/svgs';
 import { pickRandomInteger } from '../../utils/pickRandomInteger';
 
 export const SpaceBackground = () => {
+  const [acceleration, setAcceleration] = useState(1);
+
+  const onIncreaseAcceleration = () => setAcceleration(acceleration + 2);
+  const onResetAcceleration = () => setAcceleration(1);
+
   return (
-    <S.Container>
-      <SparkleElement />
-      {Array(200)
-        .fill(0)
-        .map((v, i) => (
-          <SparkleElement key={i} />
-        ))}
-    </S.Container>
+    <>
+      <S.Container>
+        {Array(150)
+          .fill(0)
+          .map((v, i) => (
+            <SparkleElement acceleration={acceleration} key={i} />
+          ))}
+      </S.Container>
+      <S.TestButtons>
+        <button>{acceleration}x</button>
+        <button onClick={onIncreaseAcceleration}>빠르게</button>
+        <button onClick={onResetAcceleration}>리셋</button>
+      </S.TestButtons>
+    </>
   );
 };
 
-const SparkleElement = () => {
+const SparkleElement = ({ acceleration }: SparkleElementProps) => {
   const [initialRight, setInitialRight] = useState(0);
   const [speed, setSpeed] = useState(0);
   const [opacity, setOpacity] = useState(0);
@@ -33,7 +44,7 @@ const SparkleElement = () => {
   const removeUnit = (str: string): number => +str.replace('px', '');
 
   const move = () => {
-    const offset = getRound(speed * (1 / 60));
+    const offset = getRound(speed * (1 / 60) * acceleration);
     const prevRight = removeUnit(ref.current.style.right);
     ref.current.style.right = `${prevRight + offset}px`;
   };
@@ -90,10 +101,6 @@ namespace S {
     top: 0;
     left: 0;
     z-index: -1;
-
-    > button {
-      background-color: white;
-    }
   `;
 
   export const Sparkle = styled.div<SparkleProps>`
@@ -110,6 +117,21 @@ namespace S {
       50% {
         opacity: ${(props) => props.opacity && props.opacity};
       }
+    }
+  `;
+
+  export const TestButtons = styled.div`
+    position: fixed;
+    bottom: 0;
+    display: flex;
+    gap: 1rem;
+    padding: 1rem;
+
+    > button {
+      background-color: white;
+      padding: 1rem;
+      border-radius: 0.6rem;
+      cursor: pointer;
     }
   `;
 }
