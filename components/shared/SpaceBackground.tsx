@@ -1,29 +1,35 @@
 import { useState, useEffect, useRef, MutableRefObject } from 'react';
 import styled from 'styled-components';
 import { Colors } from '../../styles';
+import { svgSparkle } from '../../styles/svgs';
+import { pickRandomInteger } from '../../utils/pickRandomInteger';
 
 export const SpaceBackground = () => {
-  const [speed, setSpeed] = useState(100);
-
-  const onAddDep = () => setSpeed(speed + 100);
-  const onSubDep = () => setSpeed(Math.max(speed - 100, 0));
-
   return (
     <S.Container>
-      <SparkleElement speed={speed} />
-      <button onClick={onSubDep}>DEP -</button>
-      <button onClick={onAddDep}>DEP +</button>
-      <br />
-      <button>{speed}</button>
+      <SparkleElement />
+      {Array(200)
+        .fill(0)
+        .map((v, i) => (
+          <SparkleElement key={i} />
+        ))}
     </S.Container>
   );
 };
 
-const SparkleElement = ({ speed }: { speed: number }) => {
+const SparkleElement = () => {
+  const [initialRight, setInitialRight] = useState(0);
+  const [speed, setSpeed] = useState(0);
+  const [opacity, setOpacity] = useState(0);
+  const [top, setTop] = useState(0);
+  const [blinkDuration, setBlinkDuration] = useState(0);
+  const [blinkDelay, setBlinkDelay] = useState(0);
+  const [scale, setScale] = useState(0);
   const ref = useRef() as MutableRefObject<HTMLDivElement>;
   const timerRef = useRef<number[]>([]);
 
   const getRound = (num: number): number => +num.toFixed(3);
+
   const removeUnit = (str: string): number => +str.replace('px', '');
 
   const move = () => {
@@ -43,12 +49,36 @@ const SparkleElement = ({ speed }: { speed: number }) => {
   };
 
   useEffect(() => {
-    if (timerRef.current.length)
-      timerRef.current.forEach((timerId) => cancelAnimationFrame(timerId));
-    draw();
+    if (initialRight) {
+      if (timerRef.current.length)
+        timerRef.current.forEach((timerId) => cancelAnimationFrame(timerId));
+      else ref.current.style.right = initialRight + 'px';
+      draw();
+    }
   });
 
-  return <S.Sparkle ref={ref} dep={speed}></S.Sparkle>;
+  useEffect(() => {
+    const viewportWidth = window.innerWidth;
+    setInitialRight(pickRandomInteger(0, viewportWidth));
+    setSpeed(pickRandomInteger(20, 100));
+    setOpacity(pickRandomInteger(6, 10));
+    setTop(pickRandomInteger(0, 100));
+    setBlinkDuration(pickRandomInteger(5, 10));
+    setBlinkDelay(pickRandomInteger(0, 5));
+    setScale(pickRandomInteger(10, 100));
+  }, []);
+
+  return (
+    <S.Sparkle
+      ref={ref}
+      opacity={opacity}
+      top={top}
+      blinkDuration={blinkDuration}
+      blinkDelay={blinkDelay}
+      scale={scale}>
+      {svgSparkle}
+    </S.Sparkle>
+  );
 };
 
 namespace S {
@@ -59,19 +89,27 @@ namespace S {
     position: absolute;
     top: 0;
     left: 0;
-    /* z-index: -1; */
+    z-index: -1;
 
     > button {
       background-color: white;
     }
   `;
 
-  export const Sparkle = styled.div<{ dep: number }>`
-    background-color: white;
-    width: 10rem;
-    height: 10rem;
-    border-radius: 50%;
+  export const Sparkle = styled.div<SparkleProps>`
     position: absolute;
-    right: 0px;
+    right: -100px;
+    opacity: 0;
+    top: ${(props) => props.top && props.top + 'vh'};
+    transform: ${(props) => props.scale && `scale(${props.scale}%)`};
+    animation: blink ease infinite;
+    animation-duration: ${(props) => props.blinkDuration && props.blinkDuration + 's'};
+    animation-delay: ${(props) => props.blinkDelay && props.blinkDelay + 's'};
+
+    @keyframes blink {
+      50% {
+        opacity: ${(props) => props.opacity && props.opacity};
+      }
+    }
   `;
 }
