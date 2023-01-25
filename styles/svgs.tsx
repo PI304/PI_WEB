@@ -8,3 +8,13 @@ export const svgExample = (
     />
   </svg>
 );
+
+export const svgSparkle = (
+  <svg width='17' height='17' viewBox='0 0 17 17' fill='none' xmlns='http://www.w3.org/2000/svg'>
+    <path
+      opacity='0.5'
+      d='M11.4487 5.84065L16.455 8.60759L11.4487 11.3574L8.70717 16.41L5.96561 11.3574L0.976318 8.60759L5.96561 5.84065L8.70717 0.787964L11.4487 5.84065Z'
+      fill='white'
+    />
+  </svg>
+);
