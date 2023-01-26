@@ -13,12 +13,12 @@ export const NotFoundPage = () => {
 
 namespace S {
   export const Container = styled.div`
+    width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 100vm;
-    height: 100vh;
   `;
 
   export const ErrorImg = styled.div`
