@@ -11,6 +11,7 @@ export const SpaceBackground = () => {
 
   const onIncreaseAcceleration = () => setAcceleration(acceleration + 2);
   const onResetAcceleration = () => setAcceleration(1);
+  const onRequestFullscreen = () => document.documentElement.requestFullscreen();
 
   return (
     <>
@@ -25,6 +26,7 @@ export const SpaceBackground = () => {
         <button>{acceleration}x</button>
         <button onClick={onIncreaseAcceleration}>빠르게</button>
         <button onClick={onResetAcceleration}>리셋</button>
+        <button onClick={onRequestFullscreen}>전체화면</button>
       </S.TestButtons>
     </>
   );
