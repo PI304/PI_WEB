@@ -1,10 +1,12 @@
 import { useState, useEffect, useRef, MutableRefObject } from 'react';
 import styled from 'styled-components';
+import { useMobile } from '../../hooks';
 import { Colors } from '../../styles';
 import { svgSparkle } from '../../styles/svgs';
 import { pickRandomInteger } from '../../utils/pickRandomInteger';
 
 export const SpaceBackground = () => {
+  const isMobile = useMobile();
   const [acceleration, setAcceleration] = useState(1);
 
   const onIncreaseAcceleration = () => setAcceleration(acceleration + 2);
@@ -13,7 +15,7 @@ export const SpaceBackground = () => {
   return (
     <>
       <S.Container>
-        {Array(150)
+        {Array(isMobile ? 30 : 150)
           .fill(0)
           .map((v, i) => (
             <SparkleElement acceleration={acceleration} key={i} />
