@@ -1,47 +1,15 @@
-import styled from 'styled-components';
-import { SpaceBackground } from '../components/shared';
-import { Colors, Fonts, svg404Ufo } from '../styles';
+import { ReactElement } from 'react';
+import { WithoutWidgetLayout } from '../components/layouts/WithoutWidgetLayout';
+import { NotFoundPage } from '../components/pages/notFound';
 
-export default function NotFoundPage() {
+export default function _404Page() {
   return (
-    <S.Container>
-      <S.ErrorImg>{svg404Ufo}</S.ErrorImg>
-      <S.ErrorText>404</S.ErrorText>
-      <S.ErrorText>ERROR</S.ErrorText>
-      <SpaceBackground />
-    </S.Container>
+    <>
+      <NotFoundPage />
+    </>
   );
 }
 
-namespace S {
-  export const Container = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 100vm;
-    height: 100vh;
-  `;
-
-  export const ErrorImg = styled.div`
-    margin: 0 auto;
-    animation: bounce 0.5s linear 0s infinite alternate;
-    backdrop-filter: blur(2px);
-
-    @keyframes bounce {
-      0% {
-        transform: translateY(0);
-      }
-      100% {
-        transform: translateY(-1rem);
-      }
-    }
-  `;
-
-  export const ErrorText = styled.div`
-    color: ${Colors.white};
-    margin: 0.5rem auto;
-    text-align: center;
-    ${Fonts.bold70}
-  `;
-}
+_404Page.getLayout = (page: ReactElement) => {
+  return <WithoutWidgetLayout>{page}</WithoutWidgetLayout>;
+};
