@@ -4,5 +4,6 @@ export const Seo = {
     value: 'Value',
     team: 'Team',
     work: 'Work',
+    notFound: 'Not Found',
   },
 } as const;
