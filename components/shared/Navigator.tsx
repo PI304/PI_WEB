@@ -7,13 +7,13 @@ import { svgEntireNavigator } from '../../styles/svgs';
 
 export const Navigator = () => {
   const router = useRouter();
-  const [planets, setPlanets] = useState<Planet[] | null>(null);
+  const [planets, setPlanets] = useState<Planet[]>([]);
 
   const onMove = () => {
     planets?.forEach((planet) => {
-      planet.moveToNextPhase();
-      const planetPath = planet.getPathIfMainPhase();
+      const planetPath = planet.getPathIfNextMainPhase();
       if (planetPath) router.push(planetPath);
+      planet.moveToNextPhase();
     });
   };
 
@@ -23,6 +23,7 @@ export const Navigator = () => {
     const targetRed = document.getElementById('targetRed');
     const targetPurple = document.getElementById('targetPurple');
     const targetYellow = document.getElementById('targetYellow');
+
     if (navigatorPath && targetBlue && targetRed && targetPurple && targetYellow) {
       const bluePlanet = new Planet(navigatorPath, targetBlue, 1, Paths.team);
       const redPlanet = new Planet(navigatorPath, targetRed, 2, Paths.value);

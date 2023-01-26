@@ -63,12 +63,11 @@ export class Planet {
   }
 
   getNextPhase(): keyof typeof Phases {
-    if (this.currentPhase !== Object.keys(Phases).length)
-      return (this.currentPhase + 1) as keyof typeof Phases;
-    else return 1;
+    if (this.currentPhase == Object.keys(Phases).length) return 1;
+    return (this.currentPhase + 1) as keyof typeof Phases;
   }
 
-  getPathIfMainPhase() {
-    if (this.currentPhase === 1) return this.path;
+  getPathIfNextMainPhase() {
+    if (this.getNextPhase() === 1) return this.path;
   }
 }
