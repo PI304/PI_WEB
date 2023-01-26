@@ -1,8 +1,8 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { Paths } from '../../constants/paths';
-import { Planet } from '../../models/planet';
+import { Paths } from '../../constants';
+import { Planet } from '../../models';
 import { svgEntireNavigator } from '../../styles/svgs';
 
 export const Navigator = () => {
@@ -47,11 +47,12 @@ namespace S {
     width: ${(props) => (!props.isShorten ? '40vw' : '24vw')};
     transition: 0.5s ease width;
     position: relative;
-    left: -23rem;
+    transform: translateX(-30%);
     z-index: 1;
 
     > svg {
       overflow: visible;
+      width: 100%;
       transform: scale(90%);
     }
 

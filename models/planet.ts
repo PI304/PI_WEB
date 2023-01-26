@@ -1,8 +1,7 @@
-import { Paths } from '../constants/paths';
-import { Phases } from '../constants/phases';
+import { Paths, Phases } from '../constants';
 
 export class Planet {
-  private DURATION = 0.5;
+  private DURATION = 0.4;
   private FPS = 60;
   private path: (typeof Paths)[keyof typeof Paths];
   private pathRef: SVGPathElement;
