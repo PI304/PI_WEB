@@ -473,7 +473,7 @@ export const svgProgressUfo = (
   </svg>
 );
 
-export const svgArrow12 = (
+export const svgExploreArrow12 = (
   <svg width='12' height='9' viewBox='0 0 12 9' fill='none' xmlns='http://www.w3.org/2000/svg'>
     <path
       d='M11 4.5L1 4.5M11 4.5L7 8.5M11 4.5L7 0.5'
@@ -484,7 +484,7 @@ export const svgArrow12 = (
   </svg>
 );
 
-export const svgLine = (
+export const svgProgressLine = (
   <svg width='100%' height='12' viewBox='0 0 822 12' fill='none' xmlns='http://www.w3.org/2000/svg'>
     <path
       d='M0.226497 6L6 11.7735L11.7735 6L6 0.226497L0.226497 6ZM821.773 5.99993L816 0.226426L810.227 5.99993L816 11.7734L821.773 5.99993ZM6 7L816 6.99993L816 4.99993L6 5L6 7Z'

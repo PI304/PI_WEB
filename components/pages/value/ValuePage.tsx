@@ -1,21 +1,20 @@
 import styled from 'styled-components';
-import { Colors, Fonts, svgProgressUfo, svgArrow12, svgLine } from '../../../styles';
+import { Colors, Fonts, svgProgressUfo, svgExploreArrow12, svgProgressLine } from '../../../styles';
 
 export const ValuePage = () => {
   return (
     <S.Container>
       <S.ProgressBarContainer>
         <S.ProgressBar>
-          {svgLine}
+          {svgProgressLine}
           <S.UfoImg>{svgProgressUfo}</S.UfoImg>
         </S.ProgressBar>
       </S.ProgressBarContainer>
-
       <S.ContentContainer>
         <S.Title>VALUE</S.Title>
         <S.Explore>
           <S.ExploreText>Explore</S.ExploreText>
-          <S.Arrow>{svgArrow12}</S.Arrow>
+          <S.Arrow>{svgExploreArrow12}</S.Arrow>
         </S.Explore>
       </S.ContentContainer>
     </S.Container>
@@ -84,7 +83,7 @@ namespace S {
     margin-top: 3rem;
     width: 33rem;
     height: 6rem;
-    background-color: ${Colors.red100};
+    background-color: ${Colors.red500};
     color: ${Colors.white};
     display: flex;
   `;

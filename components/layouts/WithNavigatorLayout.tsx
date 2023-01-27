@@ -18,10 +18,5 @@ namespace S {
     width: 100%;
     height: 100%;
     display: flex;
-
-    > section {
-      flex-grow: 1;
-      background-color: lightcoral;
-    }
   `;
 }
