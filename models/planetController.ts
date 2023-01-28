@@ -18,15 +18,16 @@ export class planetController {
     router: NextRouter,
   ) {
     this.router = router;
-    const bluePlanet = new Planet(pathRef, blueRef, 1, Paths.team);
-    const redPlanet = new Planet(pathRef, redRef, 2, Paths.value);
-    const purplePlanet = new Planet(pathRef, purpleRef, 3, Paths.work);
-    const yellowPlanet = new Planet(pathRef, yellowRef, 4, Paths.team);
+    const redPlanet = new Planet(pathRef, redRef, 3, Paths.value);
+    const purplePlanet = new Planet(pathRef, purpleRef, 4, Paths.work);
+    const yellowPlanet = new Planet(pathRef, yellowRef, 1, Paths.team);
+    const bluePlanet = new Planet(pathRef, blueRef, 2, Paths.edu);
     this.planets = [bluePlanet, redPlanet, purplePlanet, yellowPlanet];
     this.pathToPlanetMap = {
-      [Paths.team]: bluePlanet,
       [Paths.value]: redPlanet,
       [Paths.work]: purplePlanet,
+      [Paths.team]: yellowPlanet,
+      [Paths.edu]: bluePlanet,
     };
   }
 

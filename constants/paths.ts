@@ -3,4 +3,5 @@ export const Paths = {
   value: '/value',
   team: '/team',
   work: '/work',
+  edu: '/edu',
 } as const;
