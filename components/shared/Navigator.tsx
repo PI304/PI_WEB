@@ -1,21 +1,21 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { Paths } from '../../constants';
-import { Planet } from '../../models';
+import { Paths } from '../../constants/paths';
+import { planetController } from '../../models/planetController';
 import { svgEntireNavigator } from '../../styles/svgs';
 
 export const Navigator = () => {
   const router = useRouter();
-  const [planets, setPlanets] = useState<Planet[]>([]);
+  const [controller, setController] = useState<planetController>();
 
-  const onMove = () => {
-    planets?.forEach((planet) => {
-      const planetPath = planet.getPathIfNextMainPhase();
-      if (planetPath) router.push(planetPath);
-      planet.moveToNextPhase();
-    });
-  };
+  const onPrev = () => controller?.moveToPrev();
+  const onNext = () => controller?.moveToNext();
+
+  useEffect(() => {
+    const path = router.pathname as unknown as (typeof Paths)[keyof Omit<typeof Paths, 'main'>];
+    controller?.moveToPath(path);
+  }, [controller, router.pathname]);
 
   useEffect(() => {
     const navigatorPath = document.getElementById('navigatorPath') as unknown as SVGPathElement;
@@ -25,31 +25,38 @@ export const Navigator = () => {
     const targetYellow = document.getElementById('targetYellow');
 
     if (navigatorPath && targetBlue && targetRed && targetPurple && targetYellow) {
-      const bluePlanet = new Planet(navigatorPath, targetBlue, 1, Paths.team);
-      const redPlanet = new Planet(navigatorPath, targetRed, 2, Paths.value);
-      const purplePlanet = new Planet(navigatorPath, targetPurple, 3, Paths.work);
-      const yellowPlanet = new Planet(navigatorPath, targetYellow, 4, Paths.team);
-      setPlanets([bluePlanet, redPlanet, purplePlanet, yellowPlanet]);
+      const controller = new planetController(
+        navigatorPath,
+        targetBlue,
+        targetRed,
+        targetPurple,
+        targetYellow,
+        router,
+      );
+      setController(controller);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <S.Container isShorten={false}>
       {svgEntireNavigator}
-      <button onClick={onMove}>MOVE</button>
+      <button onClick={onPrev}>onPrev</button>
+      <button onClick={onNext}>onNext</button>
     </S.Container>
   );
 };
 
 namespace S {
   export const Container = styled.aside<IsShortenType>`
+    flex-shrink: 0;
     display: flex;
     align-items: center;
     width: ${(props) => (!props.isShorten ? '40vw' : '24vw')};
     transition: 0.5s ease width;
     position: relative;
     transform: translateX(-30%);
-    z-index: 1;
+    z-index: 100;
 
     > svg {
       overflow: visible;
@@ -64,6 +71,7 @@ namespace S {
       border-radius: 0.6rem;
       position: relative;
       left: 5rem;
+      margin: 1rem;
     }
   `;
 }
