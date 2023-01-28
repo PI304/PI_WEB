@@ -24,6 +24,13 @@ export class Planet {
     this.initialize();
   }
 
+  static convertToValidPhaseIndex(phase: number): keyof typeof Phases {
+    const phaseLength = Object.keys(Phases).length;
+    if (phase > phaseLength) return (phase - phaseLength) as keyof typeof Phases;
+    if (phase <= 0) return (phase + phaseLength) as keyof typeof Phases;
+    return phase as keyof typeof Phases;
+  }
+
   initialize() {
     const { x, y } = this.pathRef.getPointAtLength(Phases[this.currentPhase].startPoint);
     this.planetRef.setAttribute(
@@ -80,11 +87,11 @@ export class Planet {
   }
 
   getNextPhaseIndex(currentPhase = this.currentPhase) {
-    return this.convertToValidPhaseIndex(currentPhase + 1);
+    return Planet.convertToValidPhaseIndex(currentPhase + 1);
   }
 
   getPrevPhaseIndex(currentPhase = this.currentPhase) {
-    return this.convertToValidPhaseIndex(currentPhase - 1);
+    return Planet.convertToValidPhaseIndex(currentPhase - 1);
   }
 
   getPathIfNextMainPhase() {
@@ -93,13 +100,6 @@ export class Planet {
 
   getPathIfPrevMainPhase() {
     if (this.getPrevPhaseIndex() === 1) return this.routePath;
-  }
-
-  convertToValidPhaseIndex(phase: number): keyof typeof Phases {
-    const phaseLength = Object.keys(Phases).length;
-    if (phase > phaseLength) return (phase - phaseLength) as keyof typeof Phases;
-    if (phase <= 0) return (phase + phaseLength) as keyof typeof Phases;
-    return phase as keyof typeof Phases;
   }
 
   private calcDistance(startPhase: keyof typeof Phases, destination: keyof typeof Phases): number {

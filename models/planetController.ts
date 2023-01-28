@@ -4,7 +4,7 @@ import { Paths } from '../constants/paths';
 
 export class planetController {
   private planets: Planet[];
-  private routeMap: {
+  private pathToPlanetMap: {
     [keys in (typeof Paths)[keyof Omit<typeof Paths, 'main'>]]: Planet;
   };
   private router: NextRouter;
@@ -23,7 +23,7 @@ export class planetController {
     const purplePlanet = new Planet(pathRef, purpleRef, 3, Paths.work);
     const yellowPlanet = new Planet(pathRef, yellowRef, 4, Paths.team);
     this.planets = [bluePlanet, redPlanet, purplePlanet, yellowPlanet];
-    this.routeMap = {
+    this.pathToPlanetMap = {
       [Paths.team]: bluePlanet,
       [Paths.value]: redPlanet,
       [Paths.work]: purplePlanet,
@@ -47,11 +47,11 @@ export class planetController {
   }
 
   moveToPath(routePath: (typeof Paths)[keyof Omit<typeof Paths, 'main'>]) {
-    const mainPlanet = this.routeMap[routePath];
+    const mainPlanet = this.pathToPlanetMap[routePath];
     const offset = +(1 - mainPlanet.getCurrentPhase());
     this.planets.forEach((planet) => {
       const destination = planet.getCurrentPhase() + offset;
-      planet.moveForwardToSpecificPhase(planet.convertToValidPhaseIndex(destination));
+      planet.moveForwardToSpecificPhase(Planet.convertToValidPhaseIndex(destination));
     });
   }
 }
