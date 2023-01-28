@@ -52,7 +52,7 @@ export class planetController {
     const offset = +(1 - mainPlanet.getCurrentPhase());
     this.planets.forEach((planet) => {
       const destination = planet.getCurrentPhase() + offset;
-      planet.moveForwardToSpecificPhase(Planet.convertToValidPhaseIndex(destination));
+      planet.moveBackwardToSpecificPhase(Planet.convertToValidPhaseIndex(destination));
     });
   }
 }
