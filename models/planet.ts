@@ -1,8 +1,8 @@
-import { Paths, Phases } from '../constants';
+import { Paths, Phases, Stuffs } from '../constants';
 import { roundDown } from '../utils';
 
 export class Planet {
-  private DURATION = 0.4;
+  private DURATION = Stuffs.navigatorAnimationDuration;
   private FPS = 60;
   private routePath: (typeof Paths)[keyof typeof Paths];
   private pathRef: SVGPathElement;

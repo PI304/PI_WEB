@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import React, { useEffect, useState, MutableRefObject, useRef } from 'react';
 import styled from 'styled-components';
-import { Paths } from '../../constants';
+import { Paths, Stuffs } from '../../constants';
 import { planetController } from '../../models';
 import { SC, svgEntireNavigator } from '../../styles';
 
@@ -32,7 +32,7 @@ export const Navigator = () => {
     setTimeout(() => {
       scrollWindowRef.current.style.visibility = 'visible';
       scrollWindowRef.current.scrollTo(0, defaultScrollPosition);
-    }, 400);
+    }, Stuffs.navigatorAnimationDuration * 1000);
   };
 
   useEffect(() => {
