@@ -449,8 +449,8 @@ export const svgProgressUfo = (
         width='143'
         height='143'
         filterUnits='userSpaceOnUse'
-        color-interpolation-filters='sRGB'>
-        <feFlood flood-opacity='0' result='BackgroundImageFix' />
+        colorInterpolationFilters='sRGB'>
+        <feFlood floodOpacity='0' result='BackgroundImageFix' />
         <feColorMatrix
           in='SourceAlpha'
           type='matrix'
@@ -478,8 +478,8 @@ export const svgExploreArrow12 = (
     <path
       d='M11 4.5L1 4.5M11 4.5L7 8.5M11 4.5L7 0.5'
       stroke='white'
-      stroke-linecap='round'
-      stroke-linejoin='round'
+      strokeLinecap='round'
+      strokeLinejoin='round'
     />
   </svg>
 );
