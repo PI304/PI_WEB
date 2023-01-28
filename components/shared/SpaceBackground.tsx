@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { useMobile } from '../../hooks';
 import { Colors } from '../../styles';
 import { svgSparkle } from '../../styles/svgs';
-import { pickRandomInteger } from '../../utils/pickRandomInteger';
+import { pickRandomInteger } from '../../utils/randoms';
 
 export const SpaceBackground = () => {
   const isMobile = useMobile();

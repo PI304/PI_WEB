@@ -1,9 +1,10 @@
 import { Paths, Phases } from '../constants';
+import { roundDown } from '../utils/maths';
 
 export class Planet {
   private DURATION = 0.4;
   private FPS = 60;
-  private path: (typeof Paths)[keyof typeof Paths];
+  private routePath: (typeof Paths)[keyof typeof Paths];
   private pathRef: SVGPathElement;
   private planetRef: HTMLElement;
   private currentPhase: keyof typeof Phases;
@@ -14,13 +15,20 @@ export class Planet {
     pathRef: SVGPathElement,
     planetRef: HTMLElement,
     currentPhase: keyof typeof Phases,
-    path: (typeof Paths)[keyof typeof Paths],
+    routePath: (typeof Paths)[keyof typeof Paths],
   ) {
     this.pathRef = pathRef;
     this.planetRef = planetRef;
     this.currentPhase = currentPhase;
-    this.path = path;
+    this.routePath = routePath;
     this.initialize();
+  }
+
+  static convertToValidPhaseIndex(phase: number): keyof typeof Phases {
+    const phaseLength = Object.keys(Phases).length;
+    if (phase > phaseLength) return (phase - phaseLength) as keyof typeof Phases;
+    if (phase <= 0) return (phase + phaseLength) as keyof typeof Phases;
+    return phase as keyof typeof Phases;
   }
 
   initialize() {
@@ -32,7 +40,21 @@ export class Planet {
     this.planetRef.setAttribute('opacity', '1');
   }
 
-  moveToNextPhase(frame = 1) {
+  moveForwardToSpecificPhase(destination: keyof typeof Phases) {
+    this.moveToSpecificPhase(destination, this.calcForwardLength.bind(this));
+  }
+
+  moveBackwardToSpecificPhase(destination: keyof typeof Phases) {
+    this.moveToSpecificPhase(destination, this.calcBackwardLength.bind(this));
+  }
+
+  moveToSpecificPhase(
+    destination: keyof typeof Phases,
+    calcLengthLogic: typeof this.calcForwardLength | typeof this.calcBackwardLength,
+    frame = 1,
+  ) {
+    if (!this.pathRef) return;
+
     if (frame == 1)
       if (this.isMoving) return;
       else this.isMoving = true;
@@ -40,34 +62,75 @@ export class Planet {
     if (frame > this.FPS * this.DURATION) {
       this.timer.map((timer) => cancelAnimationFrame(timer));
       this.timer = [];
-      this.currentPhase = this.getNextPhase();
+      this.currentPhase = destination;
       this.isMoving = false;
       return;
     }
 
-    if (this.pathRef) {
-      const { x, y } = this.pathRef.getPointAtLength(
-        Phases[this.currentPhase].startPoint +
-          (Phases[this.currentPhase].willMove / this.DURATION / this.FPS) * frame,
-      );
+    const totalLength = calcLengthLogic(destination, frame);
+    const { x, y } = this.pathRef.getPointAtLength(this.convertToValidPathLength(totalLength));
 
-      const scaleOffset = Phases[this.getNextPhase()].scale - Phases[this.currentPhase].scale;
-      const nextScale =
-        Phases[this.currentPhase].scale + (scaleOffset / this.DURATION / this.FPS) * frame;
+    const scaleOffset = Phases[destination].scale - Phases[this.currentPhase].scale;
+    const nextScale =
+      Phases[this.currentPhase].scale + (scaleOffset / this.DURATION / this.FPS) * frame;
 
-      this.planetRef.setAttribute('transform', `translate(${x}, ${y}) scale(${nextScale})`);
+    this.planetRef.setAttribute('transform', `translate(${x}, ${y}) scale(${nextScale})`);
 
-      const timerId = requestAnimationFrame(() => this.moveToNextPhase(frame + 1));
-      this.timer.push(timerId);
-    }
+    const timerId = requestAnimationFrame(() =>
+      this.moveToSpecificPhase(destination, calcLengthLogic, frame + 1),
+    );
+    this.timer.push(timerId);
   }
 
-  getNextPhase(): keyof typeof Phases {
-    if (this.currentPhase == Object.keys(Phases).length) return 1;
-    return (this.currentPhase + 1) as keyof typeof Phases;
+  getCurrentPhase() {
+    return this.currentPhase;
+  }
+
+  getNextPhaseIndex(currentPhase = this.currentPhase) {
+    return Planet.convertToValidPhaseIndex(currentPhase + 1);
+  }
+
+  getPrevPhaseIndex(currentPhase = this.currentPhase) {
+    return Planet.convertToValidPhaseIndex(currentPhase - 1);
   }
 
   getPathIfNextMainPhase() {
-    if (this.getNextPhase() === 1) return this.path;
+    if (this.getNextPhaseIndex() === 1) return this.routePath;
+  }
+
+  getPathIfPrevMainPhase() {
+    if (this.getPrevPhaseIndex() === 1) return this.routePath;
+  }
+
+  private calcDistance(startPhase: keyof typeof Phases, destination: keyof typeof Phases): number {
+    let distance = 0;
+    let phase = startPhase;
+    do {
+      distance += Phases[phase].willMove;
+      phase = this.getNextPhaseIndex(phase);
+    } while (phase !== destination);
+    return roundDown(distance, 1);
+  }
+
+  private calcForwardLength(destination: keyof typeof Phases, frame: number): number {
+    const startPoint = Phases[this.currentPhase].startPoint;
+    const currentPhase = this.currentPhase;
+    return (
+      startPoint + (this.calcDistance(currentPhase, destination) / this.DURATION / this.FPS) * frame
+    );
+  }
+
+  private calcBackwardLength(destination: keyof typeof Phases, frame: number): number {
+    const startPoint = Phases[this.currentPhase].startPoint;
+    const currentPhase = this.currentPhase;
+    return (
+      startPoint - (this.calcDistance(destination, currentPhase) / this.DURATION / this.FPS) * frame
+    );
+  }
+
+  private convertToValidPathLength(distance: number) {
+    const pathLength = this.pathRef.getTotalLength();
+    if (distance < 0) return distance + pathLength;
+    return distance >= pathLength ? distance - pathLength : distance;
   }
 }
