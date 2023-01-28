@@ -1,16 +1,39 @@
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState, MutableRefObject, useRef } from 'react';
 import styled from 'styled-components';
 import { Paths } from '../../constants';
 import { planetController } from '../../models';
-import { svgEntireNavigator } from '../../styles';
+import { SC, svgEntireNavigator } from '../../styles';
 
 export const Navigator = () => {
   const router = useRouter();
+  const scrollWindowRef = useRef() as MutableRefObject<HTMLDivElement>;
   const [controller, setController] = useState<planetController>();
+  const [moveDownStandard, setMoveDownStandard] = useState(0);
+  const [defaultScrollPosition, setDefaultScrollPosition] = useState(0);
 
   const onPrev = () => controller?.moveToPrev();
   const onNext = () => controller?.moveToNext();
+
+  const onScroll = () => {
+    const scrollTop = Math.round(scrollWindowRef.current.scrollTop);
+    if (scrollTop >= moveDownStandard) {
+      disableScrollAndRestoreAfterDuration();
+      onNext();
+    }
+    if (scrollTop === 0) {
+      disableScrollAndRestoreAfterDuration();
+      onPrev();
+    }
+  };
+
+  const disableScrollAndRestoreAfterDuration = () => {
+    scrollWindowRef.current.style.visibility = 'hidden';
+    setTimeout(() => {
+      scrollWindowRef.current.style.visibility = 'visible';
+      scrollWindowRef.current.scrollTo(0, defaultScrollPosition);
+    }, 400);
+  };
 
   useEffect(() => {
     const path = router.pathname as unknown as (typeof Paths)[keyof Omit<typeof Paths, 'main'>];
@@ -35,14 +58,24 @@ export const Navigator = () => {
       );
       setController(controller);
     }
+
+    const moveDownStandard =
+      scrollWindowRef.current.scrollHeight - scrollWindowRef.current.clientHeight;
+    setMoveDownStandard(moveDownStandard);
+
+    const defaultScrollPosition =
+      (scrollWindowRef.current.scrollHeight - scrollWindowRef.current.clientHeight) / 2;
+    scrollWindowRef.current.scrollTop = defaultScrollPosition;
+    setDefaultScrollPosition(defaultScrollPosition);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <S.Container isShorten={false}>
       {svgEntireNavigator}
-      <button onClick={onPrev}>onPrev</button>
-      <button onClick={onNext}>onNext</button>
+      <S.ScrollWindow ref={scrollWindowRef} onScroll={onScroll}>
+        <S.Scroll />
+      </S.ScrollWindow>
     </S.Container>
   );
 };
@@ -61,17 +94,19 @@ namespace S {
     > svg {
       overflow: visible;
       width: 100%;
-      transform: scale(90%);
     }
+  `;
 
-    > button {
-      transform: translate(50%);
-      background-color: white;
-      padding: 1rem;
-      border-radius: 0.6rem;
-      position: relative;
-      left: 5rem;
-      margin: 1rem;
-    }
+  export const ScrollWindow = styled.section`
+    ${SC.HideScrollBar}
+    width: 130%;
+    height: 100%;
+    position: fixed;
+    overflow: scroll;
+  `;
+
+  export const Scroll = styled.div`
+    width: 100%;
+    height: 120%;
   `;
 }
