@@ -1,9 +1,8 @@
 import { useState, useEffect, useRef, MutableRefObject } from 'react';
 import styled from 'styled-components';
 import { useMobile } from '../../hooks';
-import { Colors } from '../../styles';
-import { svgSparkle } from '../../styles/svgs';
-import { pickRandomInteger } from '../../utils/randoms';
+import { Colors, svgSparkle } from '../../styles';
+import { pickRandomInteger } from '../../utils';
 
 export const SpaceBackground = () => {
   const isMobile = useMobile();
@@ -134,6 +133,7 @@ namespace S {
     display: flex;
     gap: 1rem;
     padding: 1rem;
+    z-index: 100;
 
     > button {
       background-color: white;

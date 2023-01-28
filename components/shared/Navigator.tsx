@@ -1,9 +1,9 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { Paths } from '../../constants/paths';
-import { planetController } from '../../models/planetController';
-import { svgEntireNavigator } from '../../styles/svgs';
+import { Paths } from '../../constants';
+import { planetController } from '../../models';
+import { svgEntireNavigator } from '../../styles';
 
 export const Navigator = () => {
   const router = useRouter();

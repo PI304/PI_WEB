@@ -1,5 +1,5 @@
 import { Paths, Phases } from '../constants';
-import { roundDown } from '../utils/maths';
+import { roundDown } from '../utils';
 
 export class Planet {
   private DURATION = 0.4;

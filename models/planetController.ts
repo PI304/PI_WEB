@@ -1,6 +1,6 @@
 import { NextRouter } from 'next/router';
-import { Planet } from './planet';
-import { Paths } from '../constants/paths';
+import { Paths } from '../constants';
+import { Planet } from '.';
 
 export class planetController {
   private planets: Planet[];
