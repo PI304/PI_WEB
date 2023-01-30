@@ -8,4 +8,15 @@ export namespace SC {
       display: none;
     }
   `;
+
+  export const BounceObject = css`
+    @keyframes bounce {
+      0% {
+        transform: translateY(0);
+      }
+      100% {
+        transform: translateY(-1rem);
+      }
+    }
+  `;
 }
