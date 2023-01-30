@@ -22,9 +22,8 @@ namespace S {
   `;
 
   export const ErrorImg = styled.div`
-    ${SC.BounceObject}
+    ${SC.BounceAnimation}
     margin: 0 auto;
-    animation: bounce 0.5s linear 0s infinite alternate;
     backdrop-filter: blur(2px);
   `;
 

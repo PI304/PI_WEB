@@ -50,11 +50,10 @@ namespace S {
   `;
 
   export const UfoImg = styled.div`
-    ${SC.BounceObject}
+    ${SC.BounceAnimation}
     position: absolute;
     bottom: 0;
     z-index: 1;
-    animation: bounce 0.5s linear 0s infinite alternate;
   `;
 
   // Content Style

@@ -9,7 +9,8 @@ export namespace SC {
     }
   `;
 
-  export const BounceObject = css`
+  export const BounceAnimation = css`
+    animation: bounce 0.5s linear 0s infinite alternate;
     @keyframes bounce {
       0% {
         transform: translateY(0);
