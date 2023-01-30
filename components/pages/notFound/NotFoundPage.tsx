@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Colors, Fonts, svg404Ufo } from '../../../styles';
+import { Colors, Fonts, svg404Ufo, SC } from '../../../styles';
 
 export const NotFoundPage = () => {
   return (
@@ -22,18 +22,9 @@ namespace S {
   `;
 
   export const ErrorImg = styled.div`
+    ${SC.BounceAnimation}
     margin: 0 auto;
-    animation: bounce 0.5s linear 0s infinite alternate;
     backdrop-filter: blur(2px);
-
-    @keyframes bounce {
-      0% {
-        transform: translateY(0);
-      }
-      100% {
-        transform: translateY(-1rem);
-      }
-    }
   `;
 
   export const ErrorText = styled.div`

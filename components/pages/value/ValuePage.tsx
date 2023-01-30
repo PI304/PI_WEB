@@ -1,5 +1,12 @@
 import styled from 'styled-components';
-import { Colors, Fonts, svgProgressUfo, svgExploreArrow12, svgProgressLine } from '../../../styles';
+import {
+  Colors,
+  Fonts,
+  svgProgressUfo,
+  svgExploreArrow12,
+  svgProgressLine,
+  SC,
+} from '../../../styles';
 
 export const ValuePage = () => {
   return (
@@ -43,19 +50,10 @@ namespace S {
   `;
 
   export const UfoImg = styled.div`
+    ${SC.BounceAnimation}
     position: absolute;
     bottom: 0;
     z-index: 1;
-    animation: bounce 0.5s linear 0s infinite alternate;
-
-    @keyframes bounce {
-      0% {
-        transform: translateY(0);
-      }
-      100% {
-        transform: translateY(-1rem);
-      }
-    }
   `;
 
   // Content Style
