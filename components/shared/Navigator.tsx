@@ -40,11 +40,11 @@ export const Navigator = () => {
     const scrollTop = Math.ceil(scrollWindowRef.current.scrollTop);
     if (scrollTop >= moveDownStandard) {
       disableScrollAndRestoreAfterDuration();
-      onNext();
+      onPrev();
     }
     if (scrollTop === 0) {
       disableScrollAndRestoreAfterDuration();
-      onPrev();
+      onNext();
     }
   };
 
