@@ -9,21 +9,42 @@ export const Navigator = () => {
   const router = useRouter();
   const scrollWindowRef = useRef() as MutableRefObject<HTMLDivElement>;
   const [controller, setController] = useState<planetController>();
+  const [foldStandard, setFoldStandard] = useState(0);
   const [moveDownStandard, setMoveDownStandard] = useState(0);
-  const [defaultScrollPosition, setDefaultScrollPosition] = useState(0);
+  const [defaultScrollXPosition, setDefaultScrollXPosition] = useState(0);
+  const [defaultScrollYPosition, setDefaultScrollYPosition] = useState(0);
+  const [isShorten, setIsShorten] = useState(false);
 
   const onPrev = () => controller?.moveToPrev();
   const onNext = () => controller?.moveToNext();
 
   const onScroll = () => {
-    const scrollTop = Math.round(scrollWindowRef.current.scrollTop);
+    if (!(moveDownStandard && foldStandard)) return;
+    onScrollX();
+    onScrollY();
+  };
+
+  const onScrollX = () => {
+    const scrollLeft = Math.ceil(scrollWindowRef.current.scrollLeft);
+    if (scrollLeft >= foldStandard) {
+      disableScrollAndRestoreAfterDuration();
+      setIsShorten(true);
+    }
+    if (scrollLeft === 0) {
+      disableScrollAndRestoreAfterDuration();
+      setIsShorten(false);
+    }
+  };
+
+  const onScrollY = () => {
+    const scrollTop = Math.ceil(scrollWindowRef.current.scrollTop);
     if (scrollTop >= moveDownStandard) {
       disableScrollAndRestoreAfterDuration();
-      onNext();
+      onPrev();
     }
     if (scrollTop === 0) {
       disableScrollAndRestoreAfterDuration();
-      onPrev();
+      onNext();
     }
   };
 
@@ -31,7 +52,7 @@ export const Navigator = () => {
     scrollWindowRef.current.style.visibility = 'hidden';
     setTimeout(() => {
       scrollWindowRef.current.style.visibility = 'visible';
-      scrollWindowRef.current.scrollTo(0, defaultScrollPosition);
+      scrollWindowRef.current.scrollTo(defaultScrollXPosition, defaultScrollYPosition);
     }, Stuffs.navigatorAnimationDuration * 1000);
   };
 
@@ -59,19 +80,30 @@ export const Navigator = () => {
       setController(controller);
     }
 
-    const moveDownStandard =
-      scrollWindowRef.current.scrollHeight - scrollWindowRef.current.clientHeight;
+    const scrollWidth = scrollWindowRef.current.scrollWidth;
+    const clientWidth = scrollWindowRef.current.clientWidth;
+    const scrollHeight = scrollWindowRef.current.scrollHeight;
+    const clientHeight = scrollWindowRef.current.clientHeight;
+
+    const foldStandard = scrollWidth - clientWidth;
+    setFoldStandard(foldStandard);
+
+    const defaultScrollXPosition = (scrollWidth - clientWidth) / 2;
+    scrollWindowRef.current.scrollLeft = defaultScrollXPosition;
+    setDefaultScrollXPosition(defaultScrollXPosition);
+
+    const moveDownStandard = scrollHeight - clientHeight;
     setMoveDownStandard(moveDownStandard);
 
-    const defaultScrollPosition =
-      (scrollWindowRef.current.scrollHeight - scrollWindowRef.current.clientHeight) / 2;
-    scrollWindowRef.current.scrollTop = defaultScrollPosition;
-    setDefaultScrollPosition(defaultScrollPosition);
+    const defaultScrollYPosition = (scrollHeight - clientHeight) / 2;
+    scrollWindowRef.current.scrollTop = defaultScrollYPosition;
+    setDefaultScrollYPosition(defaultScrollYPosition);
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
-    <S.Container isShorten={false}>
+    <S.Container isShorten={isShorten}>
       {svgEntireNavigator}
       <S.ScrollWindow ref={scrollWindowRef} onScroll={onScroll}>
         <S.Scroll />
@@ -99,14 +131,15 @@ namespace S {
 
   export const ScrollWindow = styled.section`
     ${SC.HideScrollBar}
-    width: 130%;
+    width: 100%;
     height: 100%;
     position: fixed;
+    transform: translateX(30%);
     overflow: scroll;
   `;
 
   export const Scroll = styled.div`
-    width: 100%;
+    width: 120%;
     height: 120%;
   `;
 }
