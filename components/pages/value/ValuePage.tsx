@@ -1,6 +1,7 @@
 import styled from 'styled-components';
-import { Colors, Fonts, svgProgressUfo, svgProgressLine, SC } from '../../../styles';
+import { Colors, svgProgressUfo, svgProgressLine, SC } from '../../../styles';
 import { Explore } from '../../shared/Explore';
+import { Title } from '../../shared/Title';
 
 export const ValuePage = () => {
   return (
@@ -12,7 +13,7 @@ export const ValuePage = () => {
         </S.ProgressBar>
       </S.ProgressBarContainer>
       <S.ContentContainer>
-        <S.Title>VALUE</S.Title>
+        <Title title='VALUE'></Title>
         <Explore color={Colors.red500}></Explore>
       </S.ContentContainer>
     </S.Container>
@@ -58,13 +59,5 @@ namespace S {
     height: 100%;
     padding-bottom: 5rem;
     z-index: 1;
-  `;
-
-  export const Title = styled.div`
-    ${Fonts.bold100}
-    display: flex;
-    justify-content: flex-end;
-    width: 80%;
-    padding-right: 2rem;
   `;
 }
