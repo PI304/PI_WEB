@@ -1,12 +1,6 @@
 import styled from 'styled-components';
-import {
-  Colors,
-  Fonts,
-  svgProgressUfo,
-  svgExploreArrow12,
-  svgProgressLine,
-  SC,
-} from '../../../styles';
+import { Colors, svgProgressUfo, svgProgressLine, SC } from '../../../styles';
+import { TitleLabel } from '../../shared/TitleLabel';
 
 export const ValuePage = () => {
   return (
@@ -17,13 +11,7 @@ export const ValuePage = () => {
           <S.UfoImg>{svgProgressUfo}</S.UfoImg>
         </S.ProgressBar>
       </S.ProgressBarContainer>
-      <S.ContentContainer>
-        <S.Title>VALUE</S.Title>
-        <S.Explore>
-          <S.ExploreText>Explore</S.ExploreText>
-          <S.Arrow>{svgExploreArrow12}</S.Arrow>
-        </S.Explore>
-      </S.ContentContainer>
+      <TitleLabel title='VALUE' color={Colors.red500}></TitleLabel>
     </S.Container>
   );
 };
@@ -33,6 +21,7 @@ namespace S {
     display: flex;
     flex-direction: column;
     height: 100%;
+    align-items: flex-end;
   `;
 
   // ProgressBar Style
@@ -54,50 +43,5 @@ namespace S {
     position: absolute;
     bottom: 0;
     z-index: 1;
-  `;
-
-  // Content Style
-  export const ContentContainer = styled.div`
-    color: ${Colors.white};
-    display: flex;
-    align-items: flex-end;
-    justify-content: flex-end;
-    flex-direction: column;
-    padding-right: 5rem;
-    height: 100%;
-    padding-bottom: 5rem;
-    z-index: 1;
-  `;
-
-  export const Title = styled.div`
-    ${Fonts.bold100}
-    display: flex;
-    justify-content: flex-end;
-    width: 80%;
-    padding-right: 2rem;
-  `;
-
-  export const Explore = styled.div`
-    margin-top: 3rem;
-    width: 33rem;
-    height: 6rem;
-    background-color: ${Colors.red500};
-    color: ${Colors.white};
-    display: flex;
-  `;
-
-  export const ExploreText = styled.div`
-    ${Fonts.bold30}
-    display: flex;
-    align-items: center;
-    padding: 3rem;
-    width: 75%;
-  `;
-
-  export const Arrow = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 25%;
   `;
 }
