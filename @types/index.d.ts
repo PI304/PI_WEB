@@ -10,10 +10,10 @@ type ExampleType = {
 };
 
 type TitleLabelProps = {
-  color: (typeof Colors)[keyof typeof Colors];
+  color: ValueOf<typeof Colors>;
   title: string;
 };
 
 type ColorType = {
-  color: (typeof Colors)[keyof typeof Colors];
+  color: ValueOf<typeof Colors>;
 };
