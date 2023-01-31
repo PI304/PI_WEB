@@ -9,8 +9,9 @@ type ExampleType = {
   something: ReactElement;
 };
 
-type ExploreProps = {
+type TitleLabelProps = {
   color: (typeof Colors)[keyof typeof Colors];
+  title: string;
 };
 
 type ColorType = {

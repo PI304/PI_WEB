@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import { Colors, svgProgressUfo, svgProgressLine, SC } from '../../../styles';
-import { Explore } from '../../shared/Explore';
-import { Title } from '../../shared/Title';
+import { TitleLabel } from '../../shared/TitleLabel';
 
 export const ValuePage = () => {
   return (
@@ -12,10 +11,7 @@ export const ValuePage = () => {
           <S.UfoImg>{svgProgressUfo}</S.UfoImg>
         </S.ProgressBar>
       </S.ProgressBarContainer>
-      <S.ContentContainer>
-        <Title title='VALUE'></Title>
-        <Explore color={Colors.red500}></Explore>
-      </S.ContentContainer>
+      <TitleLabel title='VALUE' color={Colors.red500}></TitleLabel>
     </S.Container>
   );
 };
@@ -25,6 +21,7 @@ namespace S {
     display: flex;
     flex-direction: column;
     height: 100%;
+    align-items: flex-end;
   `;
 
   // ProgressBar Style
@@ -45,19 +42,6 @@ namespace S {
     ${SC.BounceAnimation}
     position: absolute;
     bottom: 0;
-    z-index: 1;
-  `;
-
-  // Content Style
-  export const ContentContainer = styled.div`
-    color: ${Colors.white};
-    display: flex;
-    align-items: flex-end;
-    justify-content: flex-end;
-    flex-direction: column;
-    padding-right: 5rem;
-    height: 100%;
-    padding-bottom: 5rem;
     z-index: 1;
   `;
 }
