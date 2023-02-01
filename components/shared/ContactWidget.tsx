@@ -4,19 +4,11 @@ import { svgFloatingWidget, svgMail } from '../../styles';
 
 export const ContactWidget = () => {
   const [widgetOpen, setWidgetOpen] = useState<boolean>(false);
-  const [mailWidget, setMailWidget] = useState<boolean>(false);
-  const [animation, setAnimation] = useState<boolean>(false);
+  const [mountComplete, setMountComplete] = useState<boolean>(false);
   // 모달창 노출
-  const onShowDiv = () => {
+  const onShowMailContent = () => {
+    if (widgetOpen) setMountComplete(true);
     setWidgetOpen(!widgetOpen);
-    if (!widgetOpen) {
-      setTimeout(() => {
-        setMailWidget(!mailWidget);
-      }, 600);
-    } else {
-      setMailWidget(!mailWidget);
-      setAnimation(true);
-    }
   };
 
   const flickeringAnimation = (element: HTMLElement, idx: number) => {
@@ -39,18 +31,21 @@ export const ContactWidget = () => {
 
     if (tail1 && tail2 && tail3) {
       const tailArr = [tail1, tail2, tail3];
-      tailArr.map((tail, idx: number) => flickeringAnimation(tail, idx));
+      tailArr.forEach((tail, idx: number) => flickeringAnimation(tail, idx));
     }
   }, []);
 
   return (
     <>
       <S.Container>
-        <S.FloatingWidget onClick={onShowDiv} isOpen={widgetOpen} isAnimation={animation}>
+        <S.FloatingWidget
+          onClick={onShowMailContent}
+          isOpen={widgetOpen}
+          isMountComplete={mountComplete}>
           {svgFloatingWidget}
         </S.FloatingWidget>
-        {mailWidget && (
-          <S.WidgetContent>
+        {widgetOpen && (
+          <S.WidgetContent isShow={widgetOpen}>
             <a href='mailto:playidealab@gmail.com'>{svgMail}</a>
           </S.WidgetContent>
         )}
@@ -69,9 +64,9 @@ namespace S {
     align-items: center;
   `;
 
-  export const FloatingWidget = styled.div<IsOpenType>`
+  export const FloatingWidget = styled.div<FloatingWidgetProps>`
     animation: ${(props) =>
-      props.isOpen ? 'moveLeft 1s forwards' : props.isAnimation && 'moveRight 1s forwards'};
+      props.isOpen ? 'moveLeft 1s forwards' : props.isMountComplete && 'moveRight 1s forwards'};
     @keyframes moveLeft {
       0% {
         transform: translateX(0rem);
@@ -91,16 +86,27 @@ namespace S {
     }
   `;
 
-  export const WidgetContent = styled.div`
+  export const WidgetContent = styled.div<MailContentProps>`
     margin: 0 auto;
     position: fixed;
-    animation: bounce 0.5s linear 0s infinite alternate;
+    visibility: visible;
+    transition: linear 1000ms;
+    animation: bounce 0.5s linear 0s infinite alternate, visibleMail 1.5s;
     @keyframes bounce {
       0% {
         transform: translateY(0.5rem);
       }
       100% {
         transform: translateY(-0.5rem);
+      }
+    }
+
+    @keyframes visibleMail {
+      0% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
       }
     }
   `;

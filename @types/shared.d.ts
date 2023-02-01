@@ -6,7 +6,11 @@ type SparkleElementProps = {
   acceleration: number;
 };
 
-type IsOpenType = {
+type FloatingWidgetProps = {
   isOpen: boolean;
-  isAnimation: boolean;
+  isMountComplete: boolean;
+};
+
+type MailContentProps = {
+  isShow: boolean;
 };
