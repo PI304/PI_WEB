@@ -56,6 +56,7 @@ export const ContactWidget = () => {
 
 namespace S {
   export const Container = styled.div`
+    z-index: 10000;
     position: fixed;
     bottom: 3rem;
     right: 3rem;
