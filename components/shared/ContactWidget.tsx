@@ -17,7 +17,7 @@ export const ContactWidget = () => {
     animate.setAttribute('attributeType', 'CSS');
     animate.setAttribute('from', '0.1');
     animate.setAttribute('to', '1');
-    animate.setAttribute('dur', `3s`);
+    animate.setAttribute('dur', '3s');
     animate.setAttribute('begin', `${idx}s`);
     animate.setAttribute('repeatCount', 'indefinite');
 
@@ -45,7 +45,7 @@ export const ContactWidget = () => {
           {svgFloatingWidget}
         </S.FloatingWidget>
         {widgetOpen && (
-          <S.WidgetContent isShow={widgetOpen}>
+          <S.WidgetContent>
             <a href='mailto:playidealab@gmail.com'>{svgMail}</a>
           </S.WidgetContent>
         )}
@@ -86,7 +86,7 @@ namespace S {
     }
   `;
 
-  export const WidgetContent = styled.div<MailContentProps>`
+  export const WidgetContent = styled.div`
     margin: 0 auto;
     position: fixed;
     visibility: visible;

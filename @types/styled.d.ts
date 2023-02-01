@@ -17,3 +17,8 @@ type SparkleProps = {
   blinkDelay: number;
   scale: number;
 };
+
+type FloatingWidgetProps = {
+  isOpen: boolean;
+  isMountComplete: boolean;
+};
