@@ -25,7 +25,7 @@ export const TextAnimation = () => {
     <S.Container>
       {timer <= 5 ? (
         <>
-          <S.WeText></S.WeText>
+          <S.WeText>We</S.WeText>
           <S.TextDiv>
             <S.RotateBox action={'frontToTop'} length={wordArr[count].length}>
               {wordArr[count]}
@@ -105,9 +105,7 @@ namespace S {
     ${Fonts.bold70};
     letter-spacing: ${(props) => (40 - 4.2 * props.length) / props.length - 1}rem;
     position: absolute;
-    height: 7rem;
     width: 33rem;
-    text-align: center;
     background: ${Colors.white};
     transform: ${(props) => props.action === 'frontToTop' && 'rotateY(0deg) translateZ(3.5rem)'};
     transform: ${(props) =>
@@ -121,7 +119,8 @@ namespace S {
     color: ${Colors.white};
     display: inline-flex;
     white-space: nowrap;
-    animation: 1.5s anim-lineUp ease-out forwards;
+    opacity: 0;
+    animation: 1.5s anim-lineUp 500ms ease-out forwards;
 
     @keyframes anim-lineUp {
       0% {
