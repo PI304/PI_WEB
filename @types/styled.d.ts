@@ -22,3 +22,8 @@ type FloatingWidgetProps = {
   isOpen: boolean;
   isMountComplete: boolean;
 };
+
+type RotateTextProps = {
+  action: string;
+  length: number;
+};
