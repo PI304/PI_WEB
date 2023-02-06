@@ -6,9 +6,7 @@ export const ValuePage = () => {
   return (
     <S.Container>
       <S.ProgressBarContainer>
-        <div></div>
         <S.UfoImg>{svgProgressUfo}</S.UfoImg>
-        <div></div>
       </S.ProgressBarContainer>
       <TitleLabel title='VALUE' color={Colors.red500}></TitleLabel>
     </S.Container>
@@ -32,7 +30,8 @@ namespace S {
     border-bottom: 0.3rem solid ${Colors.white};
     position: relative;
 
-    > div:first-of-type {
+    &::before {
+      content: '';
       margin: 0 auto;
       width: 1rem;
       height: 1rem;
@@ -40,10 +39,12 @@ namespace S {
       border-radius: 50%;
       background-color: ${Colors.white};
       position: absolute;
-      top: 5.8rem;
+      bottom: 0;
+      transform: translateY(calc(50% + 1.5px));
     }
 
-    > div:last-of-type {
+    &::after {
+      content: '';
       margin: 0 auto;
       width: 1rem;
       height: 1rem;
@@ -52,7 +53,8 @@ namespace S {
       background-color: ${Colors.white};
       position: absolute;
       right: 0;
-      top: 5.8rem;
+      bottom: 0;
+      transform: translateY(calc(50% + 1.5px));
     }
   `;
 
