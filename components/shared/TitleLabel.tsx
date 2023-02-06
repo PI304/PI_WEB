@@ -16,7 +16,7 @@ export const TitleLabel = ({ title, color }: TitleLabelProps) => {
 
 namespace S {
   export const ContentContainer = styled.div`
-    ${SC.SpaceInRight}
+    ${SC.SpaceInRightAnimation}
     color: ${Colors.white};
     display: flex;
     align-items: flex-end;

@@ -23,45 +23,44 @@ namespace S {
 
   // ProgressBar Style
   export const ProgressBarContainer = styled.div`
-    ${SC.SpaceInUp}
+    ${SC.SpaceInUpAnimation}
     height: 8%;
     width: 95%;
     margin-right: 5rem;
     border-bottom: 0.3rem solid ${Colors.white};
     position: relative;
 
-    &::before {
-      content: '';
-      margin: 0 auto;
-      width: 1rem;
-      height: 1rem;
-      border: 0.3px solid ${Colors.white};
-      border-radius: 50%;
-      background-color: ${Colors.white};
-      position: absolute;
-      bottom: 0;
-      transform: translateY(calc(50% + 1.5px));
-    }
-
+    &::before,
     &::after {
       content: '';
       margin: 0 auto;
+      position: absolute;
       width: 1rem;
       height: 1rem;
-      border: 0.3px solid ${Colors.white};
-      border-radius: 50%;
+      border: 0.03rem solid ${Colors.white};
       background-color: ${Colors.white};
-      position: absolute;
-      right: 0;
-      bottom: 0;
-      transform: translateY(calc(50% + 1.5px));
+      bottom: -0.6rem;
+      transform: rotate(-45deg);
+    }
+
+    &::after {
+      right: -1rem;
     }
   `;
 
   export const UfoImg = styled.div`
-    ${SC.BounceAnimation}
+    display: flex;
     position: absolute;
-    top: 1.5rem;
-    left: -4rem;
+    bottom: 0;
+    left: -3rem;
+    animation: bounce 0.5s linear 0s infinite alternate;
+    @keyframes bounce {
+      0% {
+        transform: translateY(6.5rem);
+      }
+      100% {
+        transform: translateY(5.5rem);
+      }
+    }
   `;
 }

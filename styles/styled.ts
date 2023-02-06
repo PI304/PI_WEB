@@ -21,7 +21,7 @@ export namespace SC {
     }
   `;
 
-  export const SpaceInRight = css`
+  export const SpaceInRightAnimation = css`
     animation: spaceInRight 1s;
     @keyframes spaceInRight {
       0% {
@@ -38,7 +38,7 @@ export namespace SC {
     }
   `;
 
-  export const SpaceInUp = css`
+  export const SpaceInUpAnimation = css`
     animation: spaceInUp 1s;
     @keyframes spaceInUp {
       0% {
