@@ -39,7 +39,7 @@ namespace S {
       height: 1rem;
       border: 0.03rem solid ${Colors.white};
       background-color: ${Colors.white};
-      bottom: -0.6rem;
+      bottom: -0.65rem;
       transform: rotate(-45deg);
     }
 
