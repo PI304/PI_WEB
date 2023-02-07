@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { ColorType, TitleLabelProps } from '../../@types';
-import { Fonts, Colors, svgExploreArrow12 } from '../../styles';
+import { Fonts, Colors, svgExploreArrow12, SC } from '../../styles';
 
 export const TitleLabel = ({ title, color }: TitleLabelProps) => {
   return (
@@ -16,6 +16,7 @@ export const TitleLabel = ({ title, color }: TitleLabelProps) => {
 
 namespace S {
   export const ContentContainer = styled.div`
+    ${SC.SpaceInRightAnimation}
     color: ${Colors.white};
     display: flex;
     align-items: flex-end;

@@ -1,15 +1,12 @@
 import styled from 'styled-components';
-import { Colors, svgProgressUfo, svgProgressLine, SC } from '../../../styles';
+import { Colors, svgProgressUfo, SC } from '../../../styles';
 import { TitleLabel } from '../../shared/TitleLabel';
 
 export const ValuePage = () => {
   return (
     <S.Container>
       <S.ProgressBarContainer>
-        <S.ProgressBar>
-          {svgProgressLine}
-          <S.UfoImg>{svgProgressUfo}</S.UfoImg>
-        </S.ProgressBar>
+        <S.UfoImg>{svgProgressUfo}</S.UfoImg>
       </S.ProgressBarContainer>
       <TitleLabel title='VALUE' color={Colors.red500}></TitleLabel>
     </S.Container>
@@ -26,22 +23,44 @@ namespace S {
 
   // ProgressBar Style
   export const ProgressBarContainer = styled.div`
-    display: flex;
-    justify-content: center;
-    height: 10%;
-  `;
-
-  export const ProgressBar = styled.div`
+    ${SC.SpaceInUpAnimation}
+    height: 8%;
+    width: 95%;
+    margin-right: 5rem;
+    border-bottom: 0.3rem solid ${Colors.white};
     position: relative;
-    top: 5rem;
-    width: 90%;
-    z-index: 0;
+
+    &::before,
+    &::after {
+      content: '';
+      margin: 0 auto;
+      position: absolute;
+      width: 1rem;
+      height: 1rem;
+      border: 0.03rem solid ${Colors.white};
+      background-color: ${Colors.white};
+      bottom: -0.65rem;
+      transform: rotate(-45deg);
+    }
+
+    &::after {
+      right: -1rem;
+    }
   `;
 
   export const UfoImg = styled.div`
-    ${SC.BounceAnimation}
+    display: flex;
     position: absolute;
     bottom: 0;
-    z-index: 1;
+    left: -3rem;
+    animation: bounce 0.5s linear 0s infinite alternate;
+    @keyframes bounce {
+      0% {
+        transform: translateY(6.5rem);
+      }
+      100% {
+        transform: translateY(5.5rem);
+      }
+    }
   `;
 }
