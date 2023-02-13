@@ -3,51 +3,51 @@ import styled from 'styled-components';
 import { useInterval } from '../../../hooks';
 import { Colors, Fonts } from '../../../styles';
 
+const wordArr = ['LEARN', 'WORK', 'GATHER', 'INNOVATE', 'CHALLENGE', 'FAIL', 'GROW'];
+const actionArr = ['frontToTop', 'bottomToFront', 'backToBottom', 'topToBack'];
+
 export const TextAnimation = () => {
   const [count, setCount] = useState<number>(0);
   const [timer, setTimer] = useState<number>(0);
-  const wordArr = ['LEARN', 'WORK', 'GATHER', 'INNOVATE', 'CHALLENGE', 'FAIL', 'GROW'];
 
   const setWordArr = () => {
     setCount(4);
-    setTimer(timer + 1);
-    console.log(count);
   };
 
   const setTime = () => {
-    setTimer(timer + 1);
+    setTimer(timer + 500);
   };
 
-  useInterval(() => setWordArr(), count === 4 ? null : 2500);
-  useInterval(() => setTime(), 1000);
+  useInterval(() => setWordArr(), count === 4 ? null : 1800);
+  useInterval(() => setTime(), 500);
 
   return (
     <S.Container>
-      {timer <= 5 ? (
+      {timer <= 3500 ? (
         <>
           <S.WeText>We</S.WeText>
-          <S.TextDiv>
-            <S.RotateBox action={'frontToTop'} length={wordArr[count].length}>
+          <S.RotateDiv>
+            <S.WordBox action={actionArr[0]} length={wordArr[count].length}>
               {wordArr[count]}
-            </S.RotateBox>
-            <S.RotateBox action={'bottomToFront'} length={wordArr[count + 1].length}>
+            </S.WordBox>
+            <S.WordBox action={actionArr[1]} length={wordArr[count + 1].length}>
               {wordArr[count + 1]}
-            </S.RotateBox>
-            <S.RotateBox action={'backToBottom'} length={wordArr[count + 2].length}>
+            </S.WordBox>
+            <S.WordBox action={actionArr[2]} length={wordArr[count + 2].length}>
               {wordArr[count + 2]}
-            </S.RotateBox>
-            <S.RotateBox action={'topToBack'} length={wordArr[3].length}>
+            </S.WordBox>
+            <S.WordBox action={actionArr[3]} length={wordArr[3].length}>
               {wordArr[3]}
-            </S.RotateBox>
-          </S.TextDiv>
+            </S.WordBox>
+          </S.RotateDiv>
         </>
       ) : (
-        timer >= 5 && (
-          <S.ThisText>
+        timer > 3500 && (
+          <S.LineUpText>
             <S.RemoveText>This Is How We </S.RemoveText>
-            <S.PlayText>PLAY</S.PlayText>
+            <S.FixText>PLAY</S.FixText>
             <S.TypingText>IDEA</S.TypingText>
-          </S.ThisText>
+          </S.LineUpText>
         )
       )}
     </S.Container>
@@ -71,12 +71,12 @@ namespace S {
     color: ${Colors.black900};
   `;
 
-  export const TextDiv = styled.div`
+  export const RotateDiv = styled.div`
     height: 7rem;
     color: ${Colors.black900};
     width: 33rem;
     transform-style: preserve-3d;
-    animation: rotate 4s ease 1s forwards 1;
+    animation: rotate 3s ease 0.5s forwards 1;
 
     @keyframes rotate {
       15% {
@@ -101,7 +101,7 @@ namespace S {
     }
   `;
 
-  export const RotateBox = styled.div<RotateTextProps>`
+  export const WordBox = styled.div<RotateTextProps>`
     ${Fonts.bold70};
     letter-spacing: ${(props) => (40 - 4.2 * props.length) / props.length - 1}rem;
     position: absolute;
@@ -114,13 +114,13 @@ namespace S {
     transform: ${(props) => props.action === 'topToBack' && 'rotateX(90deg) translateZ(3.5rem)'};
   `;
 
-  export const ThisText = styled.div`
+  export const LineUpText = styled.div`
     ${Fonts.bold70};
     color: ${Colors.white};
     display: inline-flex;
     white-space: nowrap;
     opacity: 0;
-    animation: 1.5s anim-lineUp 500ms ease-out forwards;
+    animation: 1s anim-lineUp ease-out forwards;
 
     @keyframes anim-lineUp {
       0% {
@@ -141,14 +141,14 @@ namespace S {
     }
   `;
 
-  export const PlayText = styled.span`
+  export const FixText = styled.span`
     :first-letter {
       color: #956eb5;
     }
   `;
   export const TypingText = styled.span`
     width: 0;
-    animation: type 1000ms ease-in-out 4500ms forwards;
+    animation: type 600ms ease-in-out 2200ms forwards;
     overflow: hidden;
     :first-letter {
       color: #956eb5;
@@ -172,7 +172,7 @@ namespace S {
 
   export const RemoveText = styled.span`
     width: 63rem;
-    animation: remove 1500ms ease-in-out 2500ms forwards;
+    animation: remove 500ms ease-in-out 1500ms forwards;
     overflow: hidden;
 
     @keyframes remove {
