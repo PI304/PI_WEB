@@ -25,15 +25,16 @@ export const PlanetAnimation = () => {
         const mpath = document.createElementNS('http://www.w3.org/2000/svg', 'mpath');
         mpath.setAttributeNS('http://www.w3.org/1999/xlink', 'href', '#navigatorPath');
         animateMotion.appendChild(mpath);
+
+        planet.setAttribute('opacity', '1');
         planet.appendChild(animateMotion);
       }
     };
 
     if (targetBlue && targetRed && targetPurple && targetYellow) {
       const planetArr = [targetBlue, targetRed, targetPurple, targetYellow];
-      planetArr.map((planet, idx: number) => {
+      planetArr.forEach((planet, idx: number) => {
         planet.setAttribute('transform', `scale(0.5)`);
-        planet.setAttribute('opacity', '1');
         createSpinningAnimation(planet, idx);
       });
     }
