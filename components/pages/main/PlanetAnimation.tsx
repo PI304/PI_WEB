@@ -26,8 +26,8 @@ export const PlanetAnimation = () => {
         mpath.setAttributeNS('http://www.w3.org/1999/xlink', 'href', '#navigatorPath');
         animateMotion.appendChild(mpath);
 
-        planet.setAttribute('opacity', '1');
         planet.appendChild(animateMotion);
+        planet.setAttribute('opacity', '1');
       }
     };
 
